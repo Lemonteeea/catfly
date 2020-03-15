@@ -1,17 +1,41 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
-<p style="margin-top:15px"><a href=#">Catfly</a>&nbsp;{{ blogs|length }}篇文章</p>
-<ul class="list-group pagination" style="box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);">
+        {{ moment.include_moment() }}
+
+<p style="margin-top:15px">
+<a href="{{ url_for("profile") }}" class="btn-link">Catfly</a>
+{% if current_user.is_authenticated %}
+<a href="{{ url_for('new_blog') }}" style="float:right" class="btn btn-primary btn-sm">新建文章</a>
+{% endif %}
+</p>
+<ul class="list-group" style="box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);">
 	{% for blog in blogs %}
-	<li class="list-group-item"><a href=#>{{ blog }}</a></li>
+	<li class="list-group-item d-flex justify-content-between align-items-center">
+		<div>
+			<a href="{{ url_for("read_blog", blog_id=blog.id) }}" style="display:inline-block;text-align:left;font-size:15px;">{{ blog.title }}</a>
+			<small class="text-muted">{{ moment(blog.timestamp).format('YYYY-MM-DD HH:mm:ss') }}</small>
+		</div>
+		{% if current_user.is_authenticated %}
+		<div>
+                	<a class="btn btn-primary btn-sm" style="width:65px" href=#>Edit</a>
+			<form style="display:inline" method="post" action="{{ url_for('delete_blog', blog_id=blog.id) }}">
+				<input	class="btn btn-danger btn-sm" style="width:65px" type="submit" value="Delete" onclick="return confirm('Are you sure?')">
+			</form>
+		</div>
+		{% endif %}
+	</li>
 	{% endfor %}
 </ul>
 <nav style="margin-top:10px">
 	<ul class="pagination pagination-sm justify-content-end">
-		<li class="page-item"><a class="page-link" href="#">1</a></li>
-		<li class="page-item"><a class="page-link" href="#">2</a></li>
-		<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+		{% if prev_url %}
+		<li class="page-item"><a class="page-link" href="{{ prev_url }}">上一页</a></li>
+		{% endif %}
+		{% if next_url %}
+		<li class="page-item"><a class="page-link" href="{{ next_url }}">下一页</a></li>
+		{% endif %}
 	</ul>
 </nav>
 

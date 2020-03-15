@@ -4,3 +4,17 @@ body {
 	font-size: 14px;
 	font-family: Helvetica, Arial;
 }
+
+.blog_title {
+	text-align:center;
+}
+
+.blog_content {
+	overflow:auto;
+	height:500px;
+}
+
+.blog_content img{
+        max-width:100%;
+}
+

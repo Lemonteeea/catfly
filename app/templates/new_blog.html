@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post">
+	<div class="form-group" style="margin-top:5%">
+		<label class="mr-sm-2" for="inlineFormCustomSelect">Title</label>
+		<input class="form-control" type="text" name="title" autocomplete='off'>
+		<textarea class="form-control" style="margin-top:5px" type="text" rows="15" name="body">随便说点什么...</textarea>
+		<select class="custom-select mr-sm-2" name="category">
+        		<option value='1'>杂记</option>
+        		<option value='0'>编程</option>
+		</select>
+		<input class="btn btn-primary" style="margin-top:5px" type="submit" name="submit" value="发布">
+	</div>
+</form>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "mark_down.html" %}
+{% block blog %}
+
+<div>
+	<div class="blog_title">
+		<h3 style="margin-top:10px; margin-bottom:10px">{{ blog.title }}</h3>
+	</div>
+        <div class="blog_content">
+                {{ blog.body|safe }}
+        </div>
+
+</div>
+
+{% endblock %}
