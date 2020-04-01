@@ -4,12 +4,6 @@
 {% block content %}
         {{ moment.include_moment() }}
 
-<p style="margin-top:15px">
-<a href="{{ url_for("profile") }}" class="btn-link">Catfly</a>
-{% if current_user.is_authenticated %}
-<a href="{{ url_for('new_blog') }}" style="float:right" class="btn btn-primary btn-sm">新建文章</a>
-{% endif %}
-</p>
 <ul class="list-group" style="box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);">
 	{% for blog in blogs %}
 	<li class="list-group-item d-flex justify-content-between align-items-center">

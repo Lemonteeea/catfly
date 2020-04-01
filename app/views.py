@@ -22,7 +22,7 @@ def blogs():
 @app.route('/life')
 def life():
     page = request.args.get('page', 1, type=int)
-    blogs = Blogs.query.filter_by(category = 1).paginate(page, 8, False)
+    blogs = Blogs.query.filter_by(category = 1).paginate(page, 20, False)
     next_url = url_for("blogs", page=blogs.next_num)\
             if blogs.has_next else None
     prev_url = url_for("blogs", page=blogs.prev_num)\
@@ -93,7 +93,8 @@ def logout():
 
 @app.route('/profile')
 def profile():
-    return render_template('profile.html')
+    blog = Blogs.query.order_by(Blogs.timestamp.desc()).first()
+    return render_template('profile.html', blog = blog)
 
 
 @app.cli.command()

@@ -7,62 +7,59 @@
 
 		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<style>
+		.footer {
+			flex:0 0 auto;
+		}
+		</style>
 	</head>
-	<body style="margin:auto">
+	<body style="margin:auto; display: flex;flex-direction: column;height: 100%;">
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-		<div class="container d-flex justify-content-between align-items-center" style="margin-top:10px;">
-			
-			<div style="font-size:20px">
+		<div class="container d-flex justify-content-between align-items-center" style="margin-top:10px;margin-bottom:10px;flex:0 0 auto;font-size:16px;border-bottom: 1px #eef2f8 solid;">
+			<div>	
 				<img src="{{ url_for('static',filename='avatar.png') }}">
 				Catfly's Blog
 			</div>
-
+			<div>
+				<ul class="nav" style="font-size:15px;">
+						<li>
+							<a class="nav-link" href="{{ url_for("index") }}">首页</a>
+                                                </li>
+                                                <li>
+                                                        <a class="nav-link" href="{{ url_for("life") }}">杂记</a>
+                                                </li>
+                                                <li>
+                                                        <a class="nav-link" href="{{ url_for("code") }}">编程</a>
+                                                </li>
+                                                <li>
+                                                        <a class="nav-link" href="{{ url_for("profile") }}">关于</a>
+                                                </li>
+				</ul>
+			</div>
 		</div>
 		
-		<div class="container" style="height:620px;margin-top:5px">
-			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-				<a class="navbar-brand" href="{{ url_for("index") }}">首页</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-
-        	        	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-                	        	<ul class="navbar-nav mr-auto">
-                        	        	<li class="nav-item active">
-							<a class="nav-link" href="{{ url_for("blogs") }}">博客</a>
-                                		</li>
-						<li class="nav-item active">
-                                                        <a class="nav-link" href="life">杂记</a>
-                                                </li>
-						<li class="nav-item active">
-                                                        <a class="nav-link" href="code">编程</a>
-                                                </li>
-	                                	<li class="nav-item dropdown">
-        	                                	<a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">关于</a>
-                	                        	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="{{ url_for("profile") }}">关于作者</a>
-								{% if current_user.is_authenticated %}
-								<a class="dropdown-item" href="{{ url_for("logout") }}">退出登陆</a>
-								{% else %}
-								<a class="dropdown-item" href="{{ url_for("login") }}">管理员登陆</a>
-								{% endif %}
-	                                        	</div>
-        	                        	</li>
-                	        	</ul>
-               				<form class="form-inline my-2 my-lg-0">
-                                		<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        	        	<button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-                	       		</form>
-        	        	</div>
-	        	</nav>
+		<div class="container" style="margin-top:5px; flex:1 0 auto;">
 
 			{% block content %}{% endblock %}
+
 		</div>
-		<footer class="container-fluid" style="text-align:center;">
-			<small>&copy; 2020 <a href="http://catfly.me">Catfly</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">lemonyyuan@gmail.com</a></small>
-        	</footer>
+
+		<div class="footer" style="margin:3%;text-align:center;border-top: 1px #eef2f8 solid;">
+			<div style="margin-top:5px">
+			<small>&copy;<a href="http://catfly.me">Catfly</a>&nbsp;2020
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="#">lemonyyuan@gmail.com</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				{% if current_user.is_authenticated %}
+				<a href="{{ url_for("logout") }}">退出登陆</a>
+				{% else %}
+				<a href="{{ url_for("login") }}">管理员登陆</a>
+				{% endif %}
+			</small>
+			</div>
+        	</div>
 
 	</body>
 </html>
